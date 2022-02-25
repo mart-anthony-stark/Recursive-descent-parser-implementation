@@ -7,6 +7,10 @@ class Parser {
    */
   parse(string) {
     this._string = string;
+
+    // Parse recursively starting from the main
+    // entry point, the Program:
+    return this.Program();
   }
   /**
    * Main entry point
