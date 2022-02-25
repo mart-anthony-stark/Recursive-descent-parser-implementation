@@ -59,7 +59,7 @@ class Parser {
    * Expects a token of a given type.
    */
   _eat(tokenType) {
-    const token = this._lookahead;
+    const token = this.lookahead;
 
     if (token == null) {
       throw new SyntaxError(
