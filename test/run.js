@@ -2,5 +2,6 @@ const { Parser } = require("../src/Parser");
 
 const parser = new Parser();
 
-const ast = parser.parse("45a");
+const program = `15`;
+const ast = parser.parse(program);
 console.log(JSON.stringify(ast, null, 2));
