@@ -41,16 +41,42 @@ class Parser {
       body: this.NumericLiteral(),
     };
   }
+
   /**
    * NumericLiteral
    *    : NUMBER
    *    ;
    */
   NumericLiteral() {
+    const token = this._eat("NUMBER");
     return {
       type: "NumericLiteral",
-      value: Number(this._string),
+      value: Number(token.value),
     };
+  }
+
+  /**
+   * Expects a token of a given type.
+   */
+  _eat(tokenType) {
+    const token = this._lookahead;
+
+    if (token == null) {
+      throw new SyntaxError(
+        `Unexpected end of input, expected: "${tokenType}"`
+      );
+    }
+
+    if (token.type !== tokenType) {
+      throw new SyntaxError(
+        `Unexpected token: "${token.value}", expected "${tokenType}"`
+      );
+    }
+
+    // Advance to next token.
+    this._lookahead = this._tokenizer.getNextToken();
+
+    return token;
   }
 }
 
