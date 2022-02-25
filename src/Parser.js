@@ -38,7 +38,7 @@ class Parser {
   Program() {
     return {
       type: "Program",
-      body: this.NumericLiteral(),
+      body: this.Literal(),
     };
   }
 
@@ -49,6 +49,7 @@ class Parser {
    *    ;
    */
   Literal() {
+    console.log(this.lookahead.type);
     switch (this.lookahead.type) {
       case "NUMBER":
         return this.NumericLiteral();
@@ -66,7 +67,7 @@ class Parser {
   StringLiteral() {
     const token = this._eat("STRING");
     return {
-      type: "STRING",
+      type: "StringLiteral",
       value: token.value.slice(1, -1),
     };
   }
@@ -88,7 +89,8 @@ class Parser {
    */
   _eat(tokenType) {
     const token = this.lookahead;
-    console.log(token);
+    console.log({ token });
+    console.log(tokenType);
 
     if (token == null) {
       throw new SyntaxError(
