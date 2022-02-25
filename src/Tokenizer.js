@@ -3,7 +3,29 @@
  *
  * Lazily pulls a token from a stream.
  */
-class Tokenizer {}
+class Tokenizer {
+  init(string) {
+    /**
+     * Initializes the string.
+     */
+    this._string = string;
+    this._cursor = 0;
+  }
+
+  /**
+   * Whether we still have more tokens.
+   */
+  hasMoreTokens() {
+    return this._cursor < this._string.length;
+  }
+
+  /**
+   * Obtains next token.
+   */
+  getNextToken() {
+    if (!this.hasMoreTokens()) return null;
+  }
+}
 
 module.exports = {
   Tokenizer,
