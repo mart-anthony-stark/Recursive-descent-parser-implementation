@@ -32,12 +32,11 @@ class Tokenizer {
       while (!Number.isNaN(string[this._cursor])) {
         number += string[this._cursor];
       }
-
-      return {
-        type: "NUMBER",
-        value: number,
-      };
     }
+    return {
+      type: "NUMBER",
+      value: number,
+    };
   }
 }
 
