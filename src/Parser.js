@@ -43,6 +43,34 @@ class Parser {
   }
 
   /**
+   * Literal
+   *    : NumericLiteral
+   *    | StringLiteral
+   *    ;
+   */
+  Literal() {
+    switch (this.lookahead.type) {
+      case "NUMBER":
+        return this.NumericLiteral();
+      case "STRING":
+        return this.StringLiteral();
+    }
+    throw new SyntaxError("Literal: unexpected literal production");
+  }
+
+  /**
+   * StringLiteral
+   *    : STRING
+   *    ;
+   */
+  StringLiteral() {
+    const token = this._eat("STRING");
+    return {
+      type: "STRING",
+      value: token.value.slice(1, -1),
+    };
+  }
+  /**
    * NumericLiteral
    *    : NUMBER
    *    ;
@@ -60,6 +88,7 @@ class Parser {
    */
   _eat(tokenType) {
     const token = this.lookahead;
+    console.log(token);
 
     if (token == null) {
       throw new SyntaxError(
