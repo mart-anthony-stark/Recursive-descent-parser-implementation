@@ -12,6 +12,10 @@ class Tokenizer {
     this._cursor = 0;
   }
 
+  isEOF() {
+    return this._cursor === this._string.length;
+  }
+
   /**
    * Whether we still have more tokens.
    */
@@ -29,12 +33,9 @@ class Tokenizer {
 
     const string = this._string.slice(this._cursor);
     //Numbers:
-    if (!Number.isNaN(string[0])) {
+    if (!Number.isNaN(Number(string[0]))) {
       let number = "";
-      while (
-        !Number.isNaN(string[this._cursor]) &&
-        typeof string[this._cursor] != "undefined"
-      ) {
+      while (!Number.isNaN(Number(string[this._cursor]))) {
         number += string[this._cursor++];
       }
       return {
@@ -42,6 +43,22 @@ class Tokenizer {
         value: number,
       };
     }
+
+    //Strings:
+    if (string[0] === '"') {
+      let s = "";
+      do {
+        s += string[this._cursor++];
+      } while (string[this._cursor] !== '"' && !this.isEOF());
+
+      // s += this._cursor++; // skip "
+      return {
+        type: "STRING",
+        value: s,
+      };
+    }
+
+    return null;
   }
 }
 
