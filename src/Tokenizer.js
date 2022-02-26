@@ -58,7 +58,7 @@ class Tokenizer {
       };
     }
 
-    return null;
+    throw new SyntaxError(`Unexpected token: "${string}"`);
   }
 
   _match(regexp, string) {
