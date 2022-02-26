@@ -1,4 +1,16 @@
 /**
+ * Tokenizer spec.
+ */
+const Spec = [
+  //Numbers
+  [/^\d+/, "NUMBER"],
+
+  //Strings
+  [/"[^"]*"/, "STRING"],
+  [/'[^']*'/, "STRING"],
+];
+
+/**
  * Tokenizer class.
  *
  * Lazily pulls a token from a stream.
@@ -33,6 +45,9 @@ class Tokenizer {
 
     const string = this._string.slice(this._cursor);
 
+    for (const [regexp, tokenType] of Spec) {
+    }
+
     //Numbers:
     // let matched = /^[0-9]+$/.exec(string);
     let matched = /^\d+/.exec(string);
@@ -63,6 +78,14 @@ class Tokenizer {
     }
 
     return null;
+  }
+
+  _match(regexp, string) {
+    const matched = regexp.exec(string);
+    if (matched == null) return null;
+
+    this._cursor += matched[0].length;
+    return matched[0];
   }
 }
 
