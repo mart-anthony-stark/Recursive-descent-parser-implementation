@@ -34,14 +34,11 @@ class Tokenizer {
     const string = this._string.slice(this._cursor);
 
     //Numbers:
-    if (!Number.isNaN(Number(string[0]))) {
-      let number = "";
-      while (!Number.isNaN(Number(string[this._cursor]))) {
-        number += string[this._cursor++];
-      }
+    const matched = /^\d+/.exec(string);
+    if (matched !== null) {
       return {
         type: "NUMBER",
-        value: number,
+        value: string,
       };
     }
 
