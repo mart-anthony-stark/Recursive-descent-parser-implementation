@@ -2,13 +2,18 @@
  * Tokenizer spec.
  */
 const Spec = [
-  //Whitespaces
+  //Whitespaces:
   [/^\s+/, null],
 
-  //Numbers
+  //Comments
+
+  //Skip single-line comments:
+  [/^\/\/.*/, null],
+
+  //Numbers:
   [/^\d+/, "NUMBER"],
 
-  //Strings
+  //Strings:
   [/"[^"]*"/, "STRING"],
   [/'[^']*'/, "STRING"],
 ];
