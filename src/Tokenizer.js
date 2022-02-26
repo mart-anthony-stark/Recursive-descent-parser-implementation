@@ -9,6 +9,8 @@ const Spec = [
 
   //Skip single-line comments:
   [/^\/\/.*/, null],
+  //Multi-line comments:
+  [/^\/\*[\s\S]*?\*\//, null],
 
   //Numbers:
   [/^\d+/, "NUMBER"],
