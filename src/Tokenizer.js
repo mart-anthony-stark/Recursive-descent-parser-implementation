@@ -34,27 +34,22 @@ class Tokenizer {
     const string = this._string.slice(this._cursor);
 
     //Numbers:
-    const matched = /^\d+/.exec(string);
+    // let matched = /^[0-9]+$/.exec(string);
+    let matched = /^\d+/.exec(string);
     if (matched !== null) {
       return {
         type: "NUMBER",
-        value: string,
+        value: matched[0],
       };
     }
 
     //Strings:
-    if (string[0] === '"') {
-      console.log("string");
-      let s = "";
-      do {
-        s += string[this._cursor++];
-      } while (string[this._cursor] !== '"' && !this.isEOF());
-
-      s += string[this._cursor++]; // skip "
-      console.log(s);
+    matched = /"[^"]*"/.exec(string);
+    if (matched !== null) {
+      this._cursor += matched[0].length;
       return {
         type: "STRING",
-        value: s,
+        value: matched[0],
       };
     }
 
