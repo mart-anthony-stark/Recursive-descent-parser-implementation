@@ -47,14 +47,12 @@ class Tokenizer {
 
     //Strings:
     if (string[0] === '"') {
-      console.log("string");
       let s = "";
       do {
         s += string[this._cursor++];
       } while (string[this._cursor] !== '"' && !this.isEOF());
 
       s += string[this._cursor++]; // skip "
-      console.log(s);
       return {
         type: "STRING",
         value: s,
