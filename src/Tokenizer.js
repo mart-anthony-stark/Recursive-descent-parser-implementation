@@ -46,34 +46,15 @@ class Tokenizer {
     const string = this._string.slice(this._cursor);
 
     for (const [regexp, tokenType] of Spec) {
-    }
+      const tokenValue = this._match(regexp, string);
+      // Skips to next iteration if does not match rule
+      if (tokenValue == null) {
+        continue;
+      }
 
-    //Numbers:
-    // let matched = /^[0-9]+$/.exec(string);
-    let matched = /^\d+/.exec(string);
-    if (matched !== null) {
       return {
-        type: "NUMBER",
-        value: matched[0],
-      };
-    }
-
-    //Strings:
-    matched = /"[^"]*"/.exec(string);
-    if (matched !== null) {
-      this._cursor += matched[0].length;
-      return {
-        type: "STRING",
-        value: matched[0],
-      };
-    }
-
-    matched = /'[^']*'/.exec(string);
-    if (matched !== null) {
-      this._cursor += matched[0].length;
-      return {
-        type: "STRING",
-        value: matched[0],
+        type: tokenType,
+        value: tokenValue,
       };
     }
 
