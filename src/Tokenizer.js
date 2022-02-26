@@ -32,6 +32,7 @@ class Tokenizer {
     }
 
     const string = this._string.slice(this._cursor);
+
     //Numbers:
     if (!Number.isNaN(Number(string[0]))) {
       let number = "";
@@ -52,8 +53,7 @@ class Tokenizer {
         s += string[this._cursor++];
       } while (string[this._cursor] !== '"' && !this.isEOF());
 
-      // s += this._cursor++; // skip "
-      s += '"';
+      s += string[this._cursor++]; // skip "
       console.log(s);
       return {
         type: "STRING",
