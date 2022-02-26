@@ -2,6 +2,9 @@
  * Tokenizer spec.
  */
 const Spec = [
+  //Whitespaces
+  [/^\s+/, null],
+
   //Numbers
   [/^\d+/, "NUMBER"],
 
@@ -50,6 +53,10 @@ class Tokenizer {
       // Skips to next iteration if does not match rule
       if (tokenValue == null) {
         continue;
+      }
+
+      if (tokenType == null) {
+        return this.getNextToken();
       }
 
       return {
